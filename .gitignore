@@ -30,6 +30,8 @@
 .pub-cache/
 .pub/
 /build/
+# Local setting files
+/assets/cfg/local_settings.json
 
 # Web related
 lib/generated_plugin_registrant.dart

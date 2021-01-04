@@ -1,40 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:global_configuration/global_configuration.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kaf/screens/home.dart';
+import 'package:kaf/screens/login.dart';
 
-void main() {
-  runApp(MyApp());
+// https://stackoverflow.com/a/54382116/2557030
+Future<void> main() async {
+  // Do this outside App build method
+  WidgetsFlutterBinding.ensureInitialized();
+  await GlobalConfiguration().loadFromAsset("local_settings");
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var accessToken = prefs.getString('accessToken');
+  bool auth = accessToken != null; // todo, is valid?
+  if (auth) {
+    print('Access token: $accessToken');
+    GlobalConfiguration().updateValue("accessToken", accessToken);
+  } else {
+    print('No access token');
+  }
+  runApp(MyApp(
+    auth: auth,
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  final bool auth;
+
+  MyApp({this.auth});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        primaryColor: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'KA Flutter'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(child: Text('Hello KA')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('Doing something cool');
-        },
-        tooltip: 'Click me',
-        child: Icon(Icons.add),
-      ),
+      home: auth ? HomePage() : LoginPage(),
     );
   }
 }
