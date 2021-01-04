@@ -6,17 +6,18 @@ import 'package:kaf/screens/login.dart';
 
 // https://stackoverflow.com/a/54382116/2557030
 Future<void> main() async {
-  // Do this outside App build method
+  // Init outside App build method
   WidgetsFlutterBinding.ensureInitialized();
   await GlobalConfiguration().loadFromAsset("local_settings");
   SharedPreferences prefs = await SharedPreferences.getInstance();
+  // await prefs.clear();
+
   var accessToken = prefs.getString('accessToken');
   bool auth = accessToken != null; // todo, is valid?
   if (auth) {
     print('Access token: $accessToken');
     GlobalConfiguration().updateValue("accessToken", accessToken);
-  } else {
-    print('No access token');
+    GlobalConfiguration().updateValue("username", prefs.getString("username"));
   }
   runApp(MyApp(
     auth: auth,
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'KA Flutter',
       theme: ThemeData(
         primaryColor: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
