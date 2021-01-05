@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:global_configuration/global_configuration.dart';
+import 'package:kaf/screens/root.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:kaf/screens/home.dart';
 import 'package:kaf/screens/login.dart';
 
@@ -37,7 +40,12 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: auth ? HomePage() : LoginPage(),
+      initialRoute: RootPage.id,
+      routes: {
+        RootPage.id: (context) => RootPage(),
+        LoginPage.id: (context) => LoginPage(),
+        HomePage.id: (context) => HomePage(),
+      },
     );
   }
 }
