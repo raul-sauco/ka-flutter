@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
+import 'package:kaf/services/auth.dart';
 import 'package:kaf/widgets/default_drawer.dart';
+import 'package:provider/provider.dart';
 
 /// Renders the home page of a logged in user.
 class HomePage extends StatelessWidget {
@@ -16,11 +17,18 @@ class HomePage extends StatelessWidget {
         title: Text(title),
       ),
       drawer: DefaultDrawer(),
-      body: Center(
-        child: Text(
-          GlobalConfiguration().getValue('username'),
-          style: TextStyle(fontSize: 24),
-        ),
+      body: Consumer<AuthService>(
+        builder: (context, auth, child) {
+          return Center(
+            child: Text(
+              "Welcome ${auth.user.username}",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

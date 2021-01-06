@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:global_configuration/global_configuration.dart';
-import 'package:kaf/screens/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:kaf/services/auth.dart';
+import 'package:kaf/screens/root.dart';
 import 'package:kaf/screens/home.dart';
 
 /// The default application side menu most pages will use.
@@ -38,6 +37,7 @@ class DefaultDrawer extends StatelessWidget {
             onTap: () {
               // Update the state of the app.
               // ...
+              Navigator.pop(context);
             },
           ),
           ListTile(
@@ -53,29 +53,13 @@ class DefaultDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: () async {
-              await logout();
-              Navigator.pop(context);
-              Navigator.pushNamed(context, LoginPage.id);
+              await Provider.of<AuthService>(context, listen: false).logout();
+              Navigator.pushNamedAndRemoveUntil(
+                  context, RootPage.id, (Route<dynamic> route) => false);
             },
           ),
         ],
       ),
     );
   }
-}
-
-// Log the user out
-Future<void> logout() async {
-  print('logging out');
-  // Reset global configuration.
-  GlobalConfiguration().updateValue("accessToken", '');
-  GlobalConfiguration().updateValue("username", '');
-
-  // Delete from shared prefs.
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  await prefs.remove('accessToken');
-  await prefs.remove('username');
-  print('removed all prefs');
-  print(prefs.getString("username"));
-  print(prefs.getString("accessToken"));
 }

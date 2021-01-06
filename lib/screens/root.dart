@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:global_configuration/global_configuration.dart';
+import 'package:provider/provider.dart';
 
+import 'package:kaf/models/user.dart';
+import 'package:kaf/services/auth.dart';
 import 'package:kaf/screens/home.dart';
 import 'package:kaf/screens/login.dart';
 
@@ -16,8 +18,22 @@ class RootPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlobalConfiguration().getValue("accessToken") != ''
-        ? HomePage()
-        : LoginPage();
+    return FutureBuilder(
+      future: Provider.of<AuthService>(context).getUser(),
+      builder: (context, AsyncSnapshot<User> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          print('AuthService connection done');
+          print(snapshot);
+          return snapshot.hasData ? HomePage() : LoginPage();
+        } else {
+          return Center(
+            child: Container(
+              child: CircularProgressIndicator(),
+              alignment: Alignment(0.0, 0.0),
+            ),
+          );
+        }
+      },
+    );
   }
 }

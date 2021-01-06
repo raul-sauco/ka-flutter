@@ -51,10 +51,12 @@ class _LoginFormState extends State<LoginForm> {
                   // If the form passes validation, save the values.
                   _formKey.currentState.save();
                   // Send the data to the login attempt callback
-                  widget.loginCallback(LoginArguments(
-                    _username,
-                    _password,
-                  ));
+                  widget.loginCallback(
+                      LoginArguments(
+                        _username,
+                        _password,
+                      ),
+                      context);
                 }
               },
             ),

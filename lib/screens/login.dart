@@ -1,74 +1,67 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:http/http.dart' as http;
-import 'package:global_configuration/global_configuration.dart';
-import 'package:kaf/screens/home.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:kaf/services/auth.dart';
 import 'package:kaf/widgets/login_form.dart';
 
-class LoginPage extends StatelessWidget {
+/// LoginPage implements the app login functionality.
+class LoginPage extends StatefulWidget {
   static const String id = '/login';
-  LoginPage({Key key}) : super(key: key);
 
-  final String title = 'Login';
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _loading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Login'),
       ),
-      body: LoginForm(
-        loginCallback: (args) {
-          sendLoginRequest(args, context);
-        },
-      ),
+      body: _loading
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : LoginForm(loginCallback: (args, ctx) async {
+              print('Login Arguments ${args.username}, ${args.password}');
+              setState(() {
+                _loading = true;
+              });
+              try {
+                await Provider.of<AuthService>(context, listen: false)
+                    .loginUser(
+                        username: args.username, password: args.password);
+                // No need to navigate because we are already in root.
+                // Navigator.pushNamedAndRemoveUntil(context, RootPage.id,
+                // (Route<dynamic> route) => false);
+              } on Exception catch (error) {
+                setState(() {
+                  _loading = false;
+                });
+                return _buildErrorDialog(context, error.toString());
+              }
+            }),
     );
   }
 }
 
-// Send a login request to the API and process the results.
-Future<void> sendLoginRequest(LoginArguments args, BuildContext context) async {
-  String apiUrl = GlobalConfiguration().getValue("apiUrl");
-  var response = await http.post('$apiUrl/login',
-      body: {'username': args.username, 'password': args.password});
-  print(response.statusCode); // TODO check for errors.
-  if (response.statusCode == 200) {
-    // Success response will be
-    // {
-    //   error: false,
-    //   message: "OK",
-    //   credentials: {
-    //     userName: "name",
-    //     accessToken: "token"
-    //   }
-    // }
-    dynamic data = jsonDecode(response.body);
-    if (data['error'] == false) {
-      dynamic credentials = data['credentials'];
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      String accessToken = credentials['accessToken'];
-      String username = credentials['userName'];
-      prefs.setString("accessToken", accessToken);
-      prefs.setString('username', username);
-      GlobalConfiguration().updateValue('accessToken', accessToken);
-      GlobalConfiguration().updateValue('username', username);
-      Navigator.pushNamed(context, HomePage.id);
-    } else {
-      // todo display the login credentials error in a modal.
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Wrong credentials, try again.'),
-        ),
+Future _buildErrorDialog(BuildContext context, _message) {
+  return showDialog(
+    builder: (context) {
+      return AlertDialog(
+        title: Text('Error Message'),
+        content: Text(_message),
+        actions: <Widget>[
+          FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              })
+        ],
       );
-    }
-  } else {
-    // todo display the network/server error in a modal.
-    Scaffold.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Server error, try again later.'),
-      ),
-    );
-  }
+    },
+    context: context,
+  );
 }
