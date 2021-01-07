@@ -12,9 +12,6 @@ import 'package:kaf/screens/login.dart';
 /// current user's authentication status.
 class RootPage extends StatelessWidget {
   static const String id = '/';
-  final bool auth;
-
-  RootPage({this.auth});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +24,7 @@ class RootPage extends StatelessWidget {
           return snapshot.hasData ? HomePage() : LoginPage();
         } else {
           return Center(
-            child: Container(
-              child: CircularProgressIndicator(),
-              alignment: Alignment(0.0, 0.0),
-            ),
+            child: CircularProgressIndicator(),
           );
         }
       },

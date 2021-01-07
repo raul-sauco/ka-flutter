@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kaf/screens/trips.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kaf/services/auth.dart';
@@ -33,11 +34,19 @@ class DefaultDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.home),
             title: Text('Home'),
-            enabled: currentPage == HomePage.id,
+            enabled: currentPage != HomePage.id,
             onTap: () {
-              // Update the state of the app.
-              // ...
               Navigator.pop(context);
+              Navigator.pushNamed(context, HomePage.id);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.list),
+            title: Text('Trips'),
+            enabled: currentPage != TripPage.id,
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, TripPage.id);
             },
           ),
           ListTile(

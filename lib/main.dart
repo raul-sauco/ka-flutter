@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:global_configuration/global_configuration.dart';
+import 'package:kaf/screens/trips.dart';
 import 'package:provider/provider.dart';
 
 import 'package:kaf/screens/home.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         RootPage.id: (context) => RootPage(),
         LoginPage.id: (context) => LoginPage(),
         HomePage.id: (context) => HomePage(),
+        TripPage.id: (context) => TripPage(),
       },
     );
   }

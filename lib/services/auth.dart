@@ -14,6 +14,7 @@ class AuthService with ChangeNotifier {
   /// Get a User instance either from the class or shared preferences.
   Future<User> getUser() async {
     if (user != null) {
+      GlobalConfiguration().updateValue('accessToken', user.accessToken);
       return user;
     }
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -21,6 +22,7 @@ class AuthService with ChangeNotifier {
     String accessToken = prefs.getString("accessToken");
     if (username != null && accessToken != null) {
       user = User(username: username, accessToken: accessToken);
+      GlobalConfiguration().updateValue('accessToken', user.accessToken);
       return user;
     } else {
       print('No current user or user data in prefs');
@@ -36,21 +38,6 @@ class AuthService with ChangeNotifier {
     this.user = null;
     print('AuthService cleared login data');
   }
-
-  // // wrapping the firebase calls
-  // Future createUser(
-  //     {String firstName,
-  //     String lastName,
-  //     String email,
-  //     String password}) async {
-  //   var r = await FirebaseAuth.instance
-  //       .createUserWithEmailAndPassword(email: email, password: password);
-
-  //   var u = r.user;
-  //   UserUpdateInfo info = UserUpdateInfo();
-  //   info.displayName = '$firstName $lastName';
-  //   return await u.updateProfile(info);
-  // }
 
   /// Login user using username and password
   Future<User> loginUser({String username, String password}) async {

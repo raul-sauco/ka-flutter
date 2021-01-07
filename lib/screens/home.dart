@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      drawer: DefaultDrawer(),
+      drawer: DefaultDrawer(currentPage: HomePage.id),
       body: Consumer<AuthService>(
         builder: (context, auth, child) {
           return Center(
