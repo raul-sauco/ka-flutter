@@ -4,6 +4,7 @@
     "editor.formatOnSave": true
   },
   "cSpell.words": [
+    "Sqlite",
     "autocorrect",
     "dotenv",
     "headguide",

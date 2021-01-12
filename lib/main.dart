@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         RootPage.id: (context) => RootPage(),
         LoginPage.id: (context) => LoginPage(),
         HomePage.id: (context) => HomePage(),
-        TripPage.id: (context) => TripPage(),
+        TripsPage.id: (context) => TripsPage(),
       },
     );
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kaf/helpers/trip_helper.dart';
-import '../models/trip.dart';
+
+import '../../helpers/trip_helper.dart';
+import '../../models/trip.dart';
 
 /// Draws one trip details onto the UI.
 class TripListTile extends StatelessWidget {

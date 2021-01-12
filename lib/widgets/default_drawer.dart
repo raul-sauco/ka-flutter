@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/trips.dart';
 import '../services/auth.dart';
-import '../screens/root.dart';
 import '../screens/home.dart';
+import '../screens/root.dart';
+import '../screens/trips.dart';
 
 /// The default application side menu most pages will use.
 class DefaultDrawer extends StatelessWidget {
@@ -43,10 +43,10 @@ class DefaultDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.list),
             title: Text('Trips'),
-            enabled: currentPage != TripPage.id,
+            enabled: currentPage != TripsPage.id,
             onTap: () {
               Navigator.pop(context);
-              Navigator.pushNamed(context, TripPage.id);
+              Navigator.pushNamed(context, TripsPage.id);
             },
           ),
           ListTile(
