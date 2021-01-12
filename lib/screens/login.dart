@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kaf/services/auth.dart';
-import 'package:kaf/widgets/login_form.dart';
+import '../services/auth.dart';
+import '../widgets/login_form.dart';
 
 /// LoginPage implements the app login functionality.
 class LoginPage extends StatefulWidget {

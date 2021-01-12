@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:global_configuration/global_configuration.dart';
-import 'package:kaf/screens/trips.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kaf/screens/home.dart';
-import 'package:kaf/screens/login.dart';
-import 'package:kaf/screens/root.dart';
-import 'package:kaf/services/auth.dart';
+import 'screens/home.dart';
+import 'screens/login.dart';
+import 'screens/root.dart';
+import 'screens/trips.dart';
+import 'services/auth.dart';
 
 // https://stackoverflow.com/a/54382116/2557030
 Future<void> main() async {

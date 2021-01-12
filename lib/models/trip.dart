@@ -1,104 +1,97 @@
-/// Trip model.
+library trip;
+
+import 'dart:convert';
+
+import 'package:built_value/built_value.dart';
+import 'package:built_value/serializer.dart';
+
+import 'serializers.dart';
+
+part 'trip.g.dart';
+
+/// Built value will use this class to generate the Trip class.
 ///
-/// Generated using this awesome! online generator
-/// https://javiercbk.github.io/json_to_dart/
-class Trip {
-  int id;
-  int status;
-  int tripTypeId;
-  String startDate;
-  String endDate;
-  int headteacher;
-  int headguideId;
-  int logisticsCoordinatorId;
-  int programManagerId;
-  int numOfTeachers;
-  int numOfStudents;
-  int numOfFemaleStudents;
-  int numOfMaleStudents;
-  int locationId;
-  int schoolId;
-  int grade;
-  String documents;
-  String healthInfo;
-  String notes;
-  String studentCode;
-  String teacherCode;
-  String name;
+/// All this boilerplate code can be generated using the vscode extension:
+///
+/// https://marketplace.visualstudio.com/items?itemName=yongzhenlow.dart-built-value-snippets
+///
+/// "bvd" for imports.
+/// "bvts" for the class with serializers.
+abstract class Trip implements Built<Trip, TripBuilder> {
+  // Manually add the fields.
+  int get id;
+  @nullable
+  int get status;
+  @nullable
+  String get name;
+  @nullable
+  @BuiltValueField(wireName: 'trip_type_id')
+  int get tripTypeId;
+  @nullable
+  @BuiltValueField(wireName: 'start_date')
+  String get startDate;
+  @nullable
+  @BuiltValueField(wireName: 'end_date')
+  String get endDate;
+  @nullable
+  @BuiltValueField(wireName: 'headguide_id')
+  int get headguideId;
+  @nullable
+  @BuiltValueField(wireName: 'logistics_coordinator_id')
+  int get logisticsCoordinatorId;
+  @nullable
+  @BuiltValueField(wireName: 'program_manager_id')
+  int get programManagerId;
+  @nullable
+  @BuiltValueField(wireName: 'num_of_teachers')
+  int get numOfTeachers;
+  @nullable
+  @BuiltValueField(wireName: 'num_of_students')
+  int get numOfStudents;
+  @nullable
+  @BuiltValueField(wireName: 'num_of_female_students')
+  int get numOfFemaleStudents;
+  @nullable
+  @BuiltValueField(wireName: 'num_of_male_students')
+  int get numOfMaleStudents;
+  @nullable
+  @BuiltValueField(wireName: 'location_id')
+  int get locationId;
+  @nullable
+  @BuiltValueField(wireName: 'school_id')
+  int get schoolId;
+  @nullable
+  String get grade;
+  @nullable
+  String get documents;
+  @nullable
+  @BuiltValueField(wireName: 'health_info')
+  String get healthInfo;
+  @nullable
+  String get notes;
+  @nullable
+  @BuiltValueField(wireName: 'student_code')
+  String get studentCode;
+  @nullable
+  @BuiltValueField(wireName: 'teacher_code')
+  String get teacherCode;
 
-  Trip(
-      {this.id,
-      this.status,
-      this.tripTypeId,
-      this.startDate,
-      this.endDate,
-      this.headteacher,
-      this.headguideId,
-      this.logisticsCoordinatorId,
-      this.programManagerId,
-      this.numOfTeachers,
-      this.numOfStudents,
-      this.numOfFemaleStudents,
-      this.numOfMaleStudents,
-      this.locationId,
-      this.schoolId,
-      this.grade,
-      this.documents,
-      this.healthInfo,
-      this.notes,
-      this.studentCode,
-      this.teacherCode,
-      this.name});
+  Trip._();
 
-  Trip.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    status = json['status'];
-    tripTypeId = json['trip_type_id'];
-    startDate = json['start_date'];
-    // endDate = json['end_date'];
-    // headteacher = json['headteacher'];
-    // headguideId = json['headguide_id'];
-    // logisticsCoordinatorId = json['logistics_coordinator_id'];
-    // programManagerId = json['program_manager_id'];
-    // numOfTeachers = json['num_of_teachers'];
-    // numOfStudents = json['num_of_students'];
-    // numOfFemaleStudents = json['num_of_female_students'];
-    // numOfMaleStudents = json['num_of_male_students'];
-    // locationId = json['location_id'];
-    // schoolId = json['school_id'];
-    // grade = json['grade'];
-    // documents = json['documents'];
-    // healthInfo = json['health_info'];
-    // notes = json['notes'];
-    studentCode = json['student_code'];
-    teacherCode = json['teacher_code'];
-    name = json['name'];
+  // Both factory constructors below are equivalent.
+  // factory BuiltUser([void Function(BuiltUserBuilder) updates]) = _$BuiltUser;
+  factory Trip([updates(TripBuilder b)]) = _$Trip;
+
+  String toJson() {
+    return json.encode(serializers.serializeWith(Trip.serializer, this));
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['status'] = this.status;
-    data['trip_type_id'] = this.tripTypeId;
-    data['start_date'] = this.startDate;
-    data['end_date'] = this.endDate;
-    data['headteacher'] = this.headteacher;
-    data['headguide_id'] = this.headguideId;
-    data['logistics_coordinator_id'] = this.logisticsCoordinatorId;
-    data['program_manager_id'] = this.programManagerId;
-    data['num_of_teachers'] = this.numOfTeachers;
-    data['num_of_students'] = this.numOfStudents;
-    data['num_of_female_students'] = this.numOfFemaleStudents;
-    data['num_of_male_students'] = this.numOfMaleStudents;
-    data['location_id'] = this.locationId;
-    data['school_id'] = this.schoolId;
-    data['grade'] = this.grade;
-    data['documents'] = this.documents;
-    data['health_info'] = this.healthInfo;
-    data['notes'] = this.notes;
-    data['student_code'] = this.studentCode;
-    data['teacher_code'] = this.teacherCode;
-    data['name'] = this.name;
-    return data;
+  static Trip fromJson(String jsonString) {
+    return serializers.deserializeWith(
+        Trip.serializer, json.decode(jsonString));
   }
+
+  // The generator has a bug here, generates with a capital first letter.
+  // static Serializer<BuiltUser> get serializer => _$BuiltUserSerializer;
+  static Serializer<Trip> get serializer => _$tripSerializer;
 }

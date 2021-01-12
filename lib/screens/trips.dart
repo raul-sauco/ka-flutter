@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:kaf/models/trip.dart';
-import 'package:kaf/services/trip_service.dart';
-import 'package:kaf/widgets/default_drawer.dart';
-import 'package:kaf/widgets/trip_list_tile.dart';
+import '../models/trip.dart';
+import '../services/trip_service.dart';
+import '../widgets/default_drawer.dart';
+import '../widgets/trip_list_tile.dart';
 
 /// Displays programs.
 class TripPage extends StatelessWidget {

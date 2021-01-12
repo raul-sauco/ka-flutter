@@ -13,6 +13,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  built_value: ^7.1.0
+  built_collection: ^4.3.2
   cupertino_icons: ^1.0.0
   global_configuration: ^1.6.0
   http: ^0.12.2
@@ -22,6 +24,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  built_value_generator: ^7.1.0
+  # build_runner ^1.10.12 fails as of 2021-01-08 due to analyzer dependency.
+  build_runner: ^1.10.2
 
 # The following section is specific to Flutter.
 flutter:

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kaf/services/auth.dart';
-import 'package:kaf/widgets/default_drawer.dart';
 import 'package:provider/provider.dart';
+
+import '../services/auth.dart';
+import '../widgets/default_drawer.dart';
 
 /// Renders the home page of a logged in user.
 class HomePage extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:global_configuration/global_configuration.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:kaf/models/user.dart';
+import '../models/user.dart';
 
 class AuthService with ChangeNotifier {
   User user;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kaf/screens/trips.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kaf/services/auth.dart';
-import 'package:kaf/screens/root.dart';
-import 'package:kaf/screens/home.dart';
+import '../screens/trips.dart';
+import '../services/auth.dart';
+import '../screens/root.dart';
+import '../screens/home.dart';
 
 /// The default application side menu most pages will use.
 class DefaultDrawer extends StatelessWidget {

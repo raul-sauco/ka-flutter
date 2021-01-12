@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kaf/models/user.dart';
-import 'package:kaf/services/auth.dart';
-import 'package:kaf/screens/home.dart';
-import 'package:kaf/screens/login.dart';
+import '../models/user.dart';
+import '../services/auth.dart';
+import 'home.dart';
+import 'login.dart';
 
 /// RootPage serves as a placeholder root tree node.
 ///
