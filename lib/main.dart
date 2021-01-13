@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
 import 'screens/root.dart';
+import 'screens/trip_details.dart';
 import 'screens/trips.dart';
 import 'services/auth.dart';
 
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         LoginPage.id: (context) => LoginPage(),
         HomePage.id: (context) => HomePage(),
         TripsPage.id: (context) => TripsPage(),
+        TripDetailsPage.id: (context) => TripDetailsPage(),
       },
     );
   }

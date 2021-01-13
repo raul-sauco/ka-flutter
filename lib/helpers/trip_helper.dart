@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../models/trip.dart';
+
 /// Helper functionality for the Trip model
 class TripHelper {
   /// Returns the Icon widget that corresponds to the trip status value.
@@ -44,6 +46,30 @@ class TripHelper {
     }
   }
 
+  /// Returns the Text widget that corresponds to the trip status value.
+  static String getStatusText(int status) {
+    // Cases currently are;
+    // 0: DELETED
+    // 1: PROPOSED
+    // 2: CONFIRMED
+    // 3: CANCELLED
+    // 10: ACTIVE
+    switch (status) {
+      case 0:
+        return 'Deleted';
+      case 1:
+        return 'Proposed';
+      case 2:
+        return 'Confirmed';
+      case 3:
+        return 'Cancelled';
+      case 10:
+        return 'Active';
+      default:
+        return 'Unknown';
+    }
+  }
+
   /// Return a formatted version of a participant count.
   static String getFormattedCount(int num, String type) {
     if (num == null || num == 0) {
@@ -54,4 +80,15 @@ class TripHelper {
     }
     return '${num.toString()} ${type}s';
   }
+
+  /// Return a string with the expected participant count.
+  static String getParticipantCountString(Trip trip) =>
+      getFormattedCount(trip.numOfStudents, 'student') +
+      '. ' +
+      getFormattedCount(trip.numOfTeachers, 'teacher') +
+      '.';
+
+  /// Return a Text widget with the expected participant count.
+  static Text getParticipantCount(Trip trip) =>
+      Text(getParticipantCountString(trip));
 }

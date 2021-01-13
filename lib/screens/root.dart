@@ -19,8 +19,6 @@ class RootPage extends StatelessWidget {
       future: Provider.of<AuthService>(context).getUser(),
       builder: (context, AsyncSnapshot<User> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          print('AuthService connection done');
-          print(snapshot);
           return snapshot.hasData ? HomePage() : LoginPage();
         } else {
           return Center(

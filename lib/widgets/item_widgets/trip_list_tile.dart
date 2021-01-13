@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../helpers/trip_helper.dart';
 import '../../models/trip.dart';
+import '../../screens/trip_details.dart';
 
 /// Draws one trip details onto the UI.
 class TripListTile extends StatelessWidget {
@@ -17,20 +18,15 @@ class TripListTile extends StatelessWidget {
           trip.name,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        subtitle: getParticipantCount(trip),
+        subtitle: TripHelper.getParticipantCount(trip),
         onTap: () {
-          print('Tapped trip ${trip.id} tile. TODO navigate to detail page');
+          Navigator.pushNamed(
+            context,
+            TripDetailsPage.id,
+            arguments: trip,
+          );
         },
       ),
     );
   }
-}
-
-Text getParticipantCount(Trip trip) {
-  return Text(
-    TripHelper.getFormattedCount(trip.numOfStudents, 'student') +
-        '. ' +
-        TripHelper.getFormattedCount(trip.numOfTeachers, 'teacher') +
-        '.',
-  );
 }
