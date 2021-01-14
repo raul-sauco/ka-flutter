@@ -18,8 +18,9 @@ class TripService {
   Map<String, String> _headers;
   bool _hasNextPage;
   String _nextPageUrl;
+  String query;
 
-  TripService() {
+  TripService({this.query}) {
     String accessToken = GlobalConfiguration().getValue('accessToken');
     if (accessToken == null) {
       throw new Exception('No access token found');
@@ -28,6 +29,11 @@ class TripService {
     String apiUrl = GlobalConfiguration().getValue('apiUrl');
     this._nextPageUrl = '$apiUrl/trips?expand=name';
     this._hasNextPage = true;
+
+    // Add query string if not null
+    if (this.query != '') {
+      this._nextPageUrl += '&q=$query';
+    }
   }
 
   /// Returns the first page of trip data. This method can be used to reset

@@ -16,9 +16,9 @@ class GuideList extends StatefulWidget {
 }
 
 class _GuideListState extends State<GuideList> {
-  GuideService _guideService;
   final PagingController<int, Guide> _pagingController =
       PagingController(firstPageKey: 0);
+  GuideService _guideService;
 
   @override
   void initState() {

@@ -11,14 +11,17 @@ import '../item_widgets/trip_list_tile.dart';
 /// uses the infinite scroll pagination package.
 /// https://pub.dev/packages/infinite_scroll_pagination
 class TripList extends StatefulWidget {
+  final String query;
+  TripList({this.query = ''});
+
   @override
   _TripListState createState() => _TripListState();
 }
 
 class _TripListState extends State<TripList> {
-  final TripService _tripService = TripService();
   final PagingController<int, Trip> _pagingController =
       PagingController(firstPageKey: 0);
+  TripService _tripService;
 
   @override
   void initState() {
@@ -44,6 +47,11 @@ class _TripListState extends State<TripList> {
 
   @override
   Widget build(BuildContext context) {
+    // Rebuild in query change. Doing it like this works great, but it is
+    // not very clear what we are doing, maybe update this logic to use
+    // change notifier/provider to make it more readable.
+    this._tripService = TripService(query: widget.query);
+    _pagingController.refresh();
     return PagedListView<int, Trip>(
       pagingController: _pagingController,
       builderDelegate: PagedChildBuilderDelegate<Trip>(
@@ -56,6 +64,7 @@ class _TripListState extends State<TripList> {
 
   @override
   void dispose() {
+    print('trip list dispose');
     _pagingController.dispose();
     super.dispose();
   }
