@@ -25,7 +25,6 @@ class AuthService with ChangeNotifier {
       GlobalConfiguration().updateValue('accessToken', user.accessToken);
       return user;
     } else {
-      print('No current user or user data in prefs');
       return null;
     }
   }
@@ -36,7 +35,6 @@ class AuthService with ChangeNotifier {
     await prefs.remove('accessToken');
     await prefs.remove('username');
     this.user = null;
-    print('AuthService cleared login data');
   }
 
   /// Login user using username and password

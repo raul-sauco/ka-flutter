@@ -26,7 +26,10 @@ class DefaultDrawer extends StatelessWidget {
           Container(
             height: 86,
             child: DrawerHeader(
-              child: Text('MENU'),
+              child: Text(
+                'MENU',
+                style: TextStyle(color: Colors.white),
+              ),
               decoration: BoxDecoration(
                 color: Theme.of(context).primaryColor,
               ),

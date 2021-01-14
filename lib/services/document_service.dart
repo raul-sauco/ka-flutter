@@ -67,7 +67,6 @@ class DocumentService {
     var response =
         await http.get('$apiUrl/documents/$id', headers: this._headers);
     if (response.statusCode == 200) {
-      print(response.body);
       return serializers.deserializeWith(
           Document.serializer, jsonDecode(response.body));
     } else {

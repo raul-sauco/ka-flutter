@@ -25,7 +25,6 @@ class _LoginPageState extends State<LoginPage> {
               child: CircularProgressIndicator(),
             )
           : LoginForm(loginCallback: (args, ctx) async {
-              print('Login Arguments ${args.username}, ${args.password}');
               setState(() {
                 _loading = true;
               });

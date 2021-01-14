@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../services/auth.dart';
 import '../widgets/default_drawer.dart';
+import '../widgets/home/home_main_content.dart';
+import '../widgets/home/home_sliver_app_bar.dart';
 
 /// Renders the home page of a logged in user.
 class HomePage extends StatelessWidget {
@@ -14,22 +14,14 @@ class HomePage extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
       drawer: DefaultDrawer(currentPage: HomePage.id),
-      body: Consumer<AuthService>(
-        builder: (context, auth, child) {
-          return Center(
-            child: Text(
-              "Welcome ${auth.user.username}",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          );
-        },
+      body: CustomScrollView(
+        slivers: [
+          HomeSliverAppBar(),
+          SliverFillRemaining(
+            child: HomeMainContent(),
+          )
+        ],
       ),
     );
   }
