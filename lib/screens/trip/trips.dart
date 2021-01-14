@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kaf/widgets/utils/app_search_bar.dart';
 
-import '../widgets/default_drawer.dart';
-import '../widgets/list_widgets/trip_list.dart';
+import '../../widgets/utils/app_search_bar.dart';
+import '../../widgets/default_drawer.dart';
+import '../../widgets/trip/trip_list.dart';
 
 /// TripsPage displays lists of trips, the central point of data
 /// in the business model.

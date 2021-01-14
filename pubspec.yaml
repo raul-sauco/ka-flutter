@@ -16,9 +16,11 @@ dependencies:
   built_value: ^7.1.0
   built_collection: ^4.3.2
   cupertino_icons: ^1.0.0
+  flutter_markdown: ^0.5.2
   global_configuration: ^1.6.0
   http: ^0.12.2
   infinite_scroll_pagination: ^2.2.4
+  markdown: ^3.0.0
   provider: ^4.3.2+3
   shared_preferences: ^0.5.12+4
   url_launcher: ^5.7.10

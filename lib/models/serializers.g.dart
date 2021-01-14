@@ -7,6 +7,7 @@ part of serializers;
 // **************************************************************************
 
 Serializers _$serializers = (new Serializers().toBuilder()
+      ..add(Document.serializer)
       ..add(Guide.serializer)
       ..add(Trip.serializer))
     .build();

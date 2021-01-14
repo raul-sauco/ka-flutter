@@ -3,7 +3,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../models/trip.dart';
 import '../../services/trip_service.dart';
-import '../item_widgets/trip_list_tile.dart';
+import 'trip_list_tile.dart';
 
 /// TripList displays `Trip` models as a list of items.
 ///
@@ -64,7 +64,6 @@ class _TripListState extends State<TripList> {
 
   @override
   void dispose() {
-    print('trip list dispose');
     _pagingController.dispose();
     super.dispose();
   }

@@ -89,7 +89,14 @@ class _AppSearchBarState extends State<AppSearchBar> {
                 ),
               ),
             )
-          : Text(widget.title),
+          : GestureDetector(
+              onTap: () {
+                setState(() {
+                  _searching = true;
+                });
+              },
+              child: Text(widget.title),
+            ),
     );
   }
 }

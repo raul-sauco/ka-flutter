@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../models/trip.dart';
-import '../widgets/trip/trip_detail_section.dart';
-import '../widgets/trip/trip_itinerary_section.dart';
-import '../widgets/trip/trip_pack_list_section.dart';
-import '../widgets/trip/trip_staff_section.dart';
+import '../../models/trip.dart';
+import '../../widgets/trip/trip_detail_section.dart';
+import '../../widgets/trip/trip_itinerary_section.dart';
+import '../../widgets/trip/trip_pack_list_section.dart';
+import '../../widgets/trip/trip_staff_section.dart';
 
 /// TripDetails displays details about one trip model.
 ///
