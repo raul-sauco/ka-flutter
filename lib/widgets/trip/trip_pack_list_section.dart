@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../models/trip.dart';
+import '../../widgets/packing_list/pl_list.dart';
 
 /// Renders the packing list section tab on a trip detail page.
 class TripPackListSection extends StatelessWidget {
@@ -12,17 +13,7 @@ class TripPackListSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: gap, horizontal: gap / 2),
-      child: Column(
-        // TODO should be a list of items to pack for the trip.
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Hello Pack List',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: gap),
-        ],
-      ),
+      child: PackingListItemList(trip: trip),
     );
   }
 }

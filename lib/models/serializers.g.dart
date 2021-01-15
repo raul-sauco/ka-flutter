@@ -9,6 +9,8 @@ part of serializers;
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(Document.serializer)
       ..add(Guide.serializer)
+      ..add(PackingListDefaultItem.serializer)
+      ..add(PackingListItem.serializer)
       ..add(Trip.serializer))
     .build();
 
