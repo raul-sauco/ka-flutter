@@ -141,6 +141,13 @@ class _$TripSerializer implements StructuredSerializer<Trip> {
         ..add(serializers.serialize(object.teacherCode,
             specifiedType: const FullType(String)));
     }
+    if (object.activityGroups != null) {
+      result
+        ..add('activityGroups')
+        ..add(serializers.serialize(object.activityGroups,
+            specifiedType: const FullType(
+                BuiltList, const [const FullType(ActivityGroup)])));
+    }
     return result;
   }
 
@@ -239,6 +246,12 @@ class _$TripSerializer implements StructuredSerializer<Trip> {
           result.teacherCode = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'activityGroups':
+          result.activityGroups.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(ActivityGroup)]))
+              as BuiltList<Object>);
+          break;
       }
     }
 
@@ -289,6 +302,8 @@ class _$Trip extends Trip {
   final String studentCode;
   @override
   final String teacherCode;
+  @override
+  final BuiltList<ActivityGroup> activityGroups;
 
   factory _$Trip([void Function(TripBuilder) updates]) =>
       (new TripBuilder()..update(updates)).build();
@@ -314,7 +329,8 @@ class _$Trip extends Trip {
       this.healthInfo,
       this.notes,
       this.studentCode,
-      this.teacherCode})
+      this.teacherCode,
+      this.activityGroups})
       : super._() {
     if (id == null) {
       throw new BuiltValueNullFieldError('Trip', 'id');
@@ -352,7 +368,8 @@ class _$Trip extends Trip {
         healthInfo == other.healthInfo &&
         notes == other.notes &&
         studentCode == other.studentCode &&
-        teacherCode == other.teacherCode;
+        teacherCode == other.teacherCode &&
+        activityGroups == other.activityGroups;
   }
 
   @override
@@ -375,26 +392,26 @@ class _$Trip extends Trip {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            $jc($jc($jc(0, id.hashCode), status.hashCode),
-                                                                                name.hashCode),
-                                                                            tripTypeId.hashCode),
-                                                                        startDate.hashCode),
-                                                                    endDate.hashCode),
-                                                                headguideId.hashCode),
-                                                            logisticsCoordinatorId.hashCode),
-                                                        programManagerId.hashCode),
-                                                    numOfTeachers.hashCode),
-                                                numOfStudents.hashCode),
-                                            numOfFemaleStudents.hashCode),
-                                        numOfMaleStudents.hashCode),
-                                    locationId.hashCode),
-                                schoolId.hashCode),
-                            grade.hashCode),
-                        documents.hashCode),
-                    healthInfo.hashCode),
-                notes.hashCode),
-            studentCode.hashCode),
-        teacherCode.hashCode));
+                                                                            $jc($jc($jc($jc(0, id.hashCode), status.hashCode), name.hashCode),
+                                                                                tripTypeId.hashCode),
+                                                                            startDate.hashCode),
+                                                                        endDate.hashCode),
+                                                                    headguideId.hashCode),
+                                                                logisticsCoordinatorId.hashCode),
+                                                            programManagerId.hashCode),
+                                                        numOfTeachers.hashCode),
+                                                    numOfStudents.hashCode),
+                                                numOfFemaleStudents.hashCode),
+                                            numOfMaleStudents.hashCode),
+                                        locationId.hashCode),
+                                    schoolId.hashCode),
+                                grade.hashCode),
+                            documents.hashCode),
+                        healthInfo.hashCode),
+                    notes.hashCode),
+                studentCode.hashCode),
+            teacherCode.hashCode),
+        activityGroups.hashCode));
   }
 
   @override
@@ -420,7 +437,8 @@ class _$Trip extends Trip {
           ..add('healthInfo', healthInfo)
           ..add('notes', notes)
           ..add('studentCode', studentCode)
-          ..add('teacherCode', teacherCode))
+          ..add('teacherCode', teacherCode)
+          ..add('activityGroups', activityGroups))
         .toString();
   }
 }
@@ -516,6 +534,12 @@ class TripBuilder implements Builder<Trip, TripBuilder> {
   String get teacherCode => _$this._teacherCode;
   set teacherCode(String teacherCode) => _$this._teacherCode = teacherCode;
 
+  ListBuilder<ActivityGroup> _activityGroups;
+  ListBuilder<ActivityGroup> get activityGroups =>
+      _$this._activityGroups ??= new ListBuilder<ActivityGroup>();
+  set activityGroups(ListBuilder<ActivityGroup> activityGroups) =>
+      _$this._activityGroups = activityGroups;
+
   TripBuilder();
 
   TripBuilder get _$this {
@@ -541,6 +565,7 @@ class TripBuilder implements Builder<Trip, TripBuilder> {
       _notes = _$v.notes;
       _studentCode = _$v.studentCode;
       _teacherCode = _$v.teacherCode;
+      _activityGroups = _$v.activityGroups?.toBuilder();
       _$v = null;
     }
     return this;
@@ -561,29 +586,43 @@ class TripBuilder implements Builder<Trip, TripBuilder> {
 
   @override
   _$Trip build() {
-    final _$result = _$v ??
-        new _$Trip._(
-            id: id,
-            status: status,
-            name: name,
-            tripTypeId: tripTypeId,
-            startDate: startDate,
-            endDate: endDate,
-            headguideId: headguideId,
-            logisticsCoordinatorId: logisticsCoordinatorId,
-            programManagerId: programManagerId,
-            numOfTeachers: numOfTeachers,
-            numOfStudents: numOfStudents,
-            numOfFemaleStudents: numOfFemaleStudents,
-            numOfMaleStudents: numOfMaleStudents,
-            locationId: locationId,
-            schoolId: schoolId,
-            grade: grade,
-            documents: documents,
-            healthInfo: healthInfo,
-            notes: notes,
-            studentCode: studentCode,
-            teacherCode: teacherCode);
+    _$Trip _$result;
+    try {
+      _$result = _$v ??
+          new _$Trip._(
+              id: id,
+              status: status,
+              name: name,
+              tripTypeId: tripTypeId,
+              startDate: startDate,
+              endDate: endDate,
+              headguideId: headguideId,
+              logisticsCoordinatorId: logisticsCoordinatorId,
+              programManagerId: programManagerId,
+              numOfTeachers: numOfTeachers,
+              numOfStudents: numOfStudents,
+              numOfFemaleStudents: numOfFemaleStudents,
+              numOfMaleStudents: numOfMaleStudents,
+              locationId: locationId,
+              schoolId: schoolId,
+              grade: grade,
+              documents: documents,
+              healthInfo: healthInfo,
+              notes: notes,
+              studentCode: studentCode,
+              teacherCode: teacherCode,
+              activityGroups: _activityGroups?.build());
+    } catch (_) {
+      String _$failedField;
+      try {
+        _$failedField = 'activityGroups';
+        _activityGroups?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            'Trip', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }
