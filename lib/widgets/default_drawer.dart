@@ -75,13 +75,36 @@ class DefaultDrawer extends StatelessWidget {
             leading: Icon(Icons.exit_to_app),
             title: Text('Logout'),
             onTap: () async {
-              await Provider.of<AuthService>(context, listen: false).logout();
-              Navigator.pushNamedAndRemoveUntil(
-                  context, RootPage.id, (Route<dynamic> route) => false);
+              displayLogoutConfirmation(context);
             },
           ),
         ],
       ),
     );
   }
+}
+
+// Get confirmation from the user before logout to prevent accidental clicks.
+void displayLogoutConfirmation(BuildContext context) {
+  Widget cancelButton = FlatButton(
+    onPressed: () {
+      Navigator.pop(context);
+    },
+    child: Text('Cancel'),
+  );
+  Widget confirmButton = FlatButton(
+    onPressed: () async {
+      Navigator.pop(context);
+      await Provider.of<AuthService>(context, listen: false).logout();
+      Navigator.pushNamedAndRemoveUntil(
+          context, RootPage.id, (Route<dynamic> route) => false);
+    },
+    child: Text('Logout'),
+  );
+  AlertDialog alert = AlertDialog(
+    title: Text('Logout'),
+    content: Text('Do you really want to logout?'),
+    actions: [cancelButton, confirmButton],
+  );
+  showDialog(context: context, builder: (context) => alert);
 }
