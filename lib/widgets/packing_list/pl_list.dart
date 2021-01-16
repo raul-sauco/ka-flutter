@@ -13,7 +13,7 @@ class PackingListItemList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<PackingListItem>>(
-      future: PackingListService(tripId: trip.id).getItems(),
+      future: PackingListService(tripId: trip.id).getNextPage(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.hasData && snapshot.data.length > 0) {
@@ -24,7 +24,7 @@ class PackingListItemList extends StatelessWidget {
                   PackingListItemListItem(item: items[index]),
             );
           } else {
-            return Center(child: Text('No details for this trip'));
+            return Center(child: Text('This packing list is empty'));
           }
         } else {
           return Center(child: CircularProgressIndicator());
