@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 class LoginForm extends StatefulWidget {
   /// Used by the router to index this screen.
   static const passwordLabel = 'Password';
+  static const usernameLabel = 'Username';
   final Function loginCallback;
 
   LoginForm({@required this.loginCallback});
@@ -25,40 +26,62 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      // Use a form to keep values together.
-      child: Form(
-        key: _formKey,
-        child: Column(
-          // Align the form items in the middle of the page.
-          mainAxisAlignment: MainAxisAlignment.center,
-          // Stretch will make the button full-width.
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/login-bg.jpg'), fit: BoxFit.cover,
+          // alignment: Alignment.topCenter,
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        // Use a form to keep values together.
+        child: Stack(
           children: [
-            getFormField('Username', (String value) {
-              _username = value.trim();
-            }),
-            SizedBox(height: 16),
-            getFormField(LoginForm.passwordLabel, (String value) {
-              _password = value.trim();
-            }),
-            SizedBox(height: 16),
-            ElevatedButton(
-              child: Text("Log in"),
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  // If the form passes validation, save the values.
-                  _formKey.currentState.save();
-                  // Send the data to the login attempt callback
-                  widget.loginCallback(
-                      LoginArguments(
-                        _username,
-                        _password,
-                      ),
-                      context);
-                }
-              },
+            Positioned(
+                top: 0,
+                right: 0,
+                child: SizedBox(
+                  height: 160,
+                  width: 160,
+                  child: Image(
+                    image: AssetImage('assets/images/logo-tr.png'),
+                  ),
+                )),
+            Form(
+              key: _formKey,
+              child: Column(
+                // Align the form items in the middle of the page.
+                mainAxisAlignment: MainAxisAlignment.center,
+                // Stretch will make the button full-width.
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  getFormField(LoginForm.usernameLabel, (String value) {
+                    _username = value.trim();
+                  }),
+                  SizedBox(height: 16),
+                  getFormField(LoginForm.passwordLabel, (String value) {
+                    _password = value.trim();
+                  }),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    child: Text("Log in"),
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        // If the form passes validation, save the values.
+                        _formKey.currentState.save();
+                        // Send the data to the login attempt callback
+                        widget.loginCallback(
+                            LoginArguments(
+                              _username,
+                              _password,
+                            ),
+                            context);
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -73,7 +96,11 @@ class _LoginFormState extends State<LoginForm> {
 /// similar structure.
 TextFormField getFormField(String labelText, Function onSaved) {
   return TextFormField(
+    // Let the user ask for focus, nicer on mobile.
+    // autofocus: labelText == LoginForm.usernameLabel,
     decoration: InputDecoration(
+      filled: true,
+      fillColor: Colors.white,
       labelText: labelText,
       enabledBorder: OutlineInputBorder(),
       floatingLabelBehavior: FloatingLabelBehavior.auto,

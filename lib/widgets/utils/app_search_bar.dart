@@ -20,6 +20,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
   Timer _debounce;
   String _lastQuery = '';
   bool _searching = false;
+  FocusNode _searchFieldFocusNode;
 
   // Debounce search example from StackOverflow.
   // https://stackoverflow.com/a/52930197/2557030
@@ -39,12 +40,14 @@ class _AppSearchBarState extends State<AppSearchBar> {
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchChanged);
+    _searchFieldFocusNode = FocusNode();
   }
 
   @override
   void dispose() {
     _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
+    _searchFieldFocusNode.dispose();
     _debounce?.cancel();
     super.dispose();
   }
@@ -71,12 +74,14 @@ class _AppSearchBarState extends State<AppSearchBar> {
                 onPressed: () {
                   setState(() {
                     _searching = true;
+                    _searchFieldFocusNode.requestFocus();
                   });
                 },
               ),
       ],
       title: _searching
           ? TextField(
+              focusNode: _searchFieldFocusNode,
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Search...',
@@ -93,6 +98,7 @@ class _AppSearchBarState extends State<AppSearchBar> {
               onTap: () {
                 setState(() {
                   _searching = true;
+                  _searchFieldFocusNode.requestFocus();
                 });
               },
               child: Text(widget.title),
