@@ -143,7 +143,7 @@ class _$TripSerializer implements StructuredSerializer<Trip> {
     }
     if (object.activityGroups != null) {
       result
-        ..add('activityGroups')
+        ..add('ags')
         ..add(serializers.serialize(object.activityGroups,
             specifiedType: const FullType(
                 BuiltList, const [const FullType(ActivityGroup)])));
@@ -246,7 +246,7 @@ class _$TripSerializer implements StructuredSerializer<Trip> {
           result.teacherCode = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'activityGroups':
+        case 'ags':
           result.activityGroups.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(ActivityGroup)]))

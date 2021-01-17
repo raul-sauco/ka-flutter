@@ -12,7 +12,11 @@ part 'activity_group.g.dart';
 /// Built value ActivityGroup model.
 abstract class ActivityGroup
     implements Built<ActivityGroup, ActivityGroupBuilder> {
-  // Fields
+  int get id;
+  @nullable
+  String get name;
+  @BuiltValueField(wireName: 'trip_id')
+  int get tripId;
 
   ActivityGroup._();
 

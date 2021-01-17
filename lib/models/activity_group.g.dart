@@ -18,22 +18,71 @@ class _$ActivityGroupSerializer implements StructuredSerializer<ActivityGroup> {
   @override
   Iterable<Object> serialize(Serializers serializers, ActivityGroup object,
       {FullType specifiedType = FullType.unspecified}) {
-    return <Object>[];
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(int)),
+      'trip_id',
+      serializers.serialize(object.tripId, specifiedType: const FullType(int)),
+    ];
+    if (object.name != null) {
+      result
+        ..add('name')
+        ..add(serializers.serialize(object.name,
+            specifiedType: const FullType(String)));
+    }
+    return result;
   }
 
   @override
   ActivityGroup deserialize(
       Serializers serializers, Iterable<Object> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    return new ActivityGroupBuilder().build();
+    final result = new ActivityGroupBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'trip_id':
+          result.tripId = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
   }
 }
 
 class _$ActivityGroup extends ActivityGroup {
+  @override
+  final int id;
+  @override
+  final String name;
+  @override
+  final int tripId;
+
   factory _$ActivityGroup([void Function(ActivityGroupBuilder) updates]) =>
       (new ActivityGroupBuilder()..update(updates)).build();
 
-  _$ActivityGroup._() : super._();
+  _$ActivityGroup._({this.id, this.name, this.tripId}) : super._() {
+    if (id == null) {
+      throw new BuiltValueNullFieldError('ActivityGroup', 'id');
+    }
+    if (tripId == null) {
+      throw new BuiltValueNullFieldError('ActivityGroup', 'tripId');
+    }
+  }
 
   @override
   ActivityGroup rebuild(void Function(ActivityGroupBuilder) updates) =>
@@ -45,17 +94,24 @@ class _$ActivityGroup extends ActivityGroup {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ActivityGroup;
+    return other is ActivityGroup &&
+        id == other.id &&
+        name == other.name &&
+        tripId == other.tripId;
   }
 
   @override
   int get hashCode {
-    return 119886072;
+    return $jf($jc($jc($jc(0, id.hashCode), name.hashCode), tripId.hashCode));
   }
 
   @override
   String toString() {
-    return newBuiltValueToStringHelper('ActivityGroup').toString();
+    return (newBuiltValueToStringHelper('ActivityGroup')
+          ..add('id', id)
+          ..add('name', name)
+          ..add('tripId', tripId))
+        .toString();
   }
 }
 
@@ -63,7 +119,29 @@ class ActivityGroupBuilder
     implements Builder<ActivityGroup, ActivityGroupBuilder> {
   _$ActivityGroup _$v;
 
+  int _id;
+  int get id => _$this._id;
+  set id(int id) => _$this._id = id;
+
+  String _name;
+  String get name => _$this._name;
+  set name(String name) => _$this._name = name;
+
+  int _tripId;
+  int get tripId => _$this._tripId;
+  set tripId(int tripId) => _$this._tripId = tripId;
+
   ActivityGroupBuilder();
+
+  ActivityGroupBuilder get _$this {
+    if (_$v != null) {
+      _id = _$v.id;
+      _name = _$v.name;
+      _tripId = _$v.tripId;
+      _$v = null;
+    }
+    return this;
+  }
 
   @override
   void replace(ActivityGroup other) {
@@ -80,7 +158,8 @@ class ActivityGroupBuilder
 
   @override
   _$ActivityGroup build() {
-    final _$result = _$v ?? new _$ActivityGroup._();
+    final _$result =
+        _$v ?? new _$ActivityGroup._(id: id, name: name, tripId: tripId);
     replace(_$result);
     return _$result;
   }

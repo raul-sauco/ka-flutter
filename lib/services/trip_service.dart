@@ -16,7 +16,7 @@ class TripService {
 
   TripService({String query}) {
     Map<String, String> params = {'expand': 'name,ags'};
-    if (query != null) {
+    if (query != null && query.isNotEmpty) {
       params['q'] = query;
     }
     _api = Api(endpoint: endpoint, params: params);

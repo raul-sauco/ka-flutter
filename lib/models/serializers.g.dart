@@ -9,6 +9,7 @@ part of serializers;
 Serializers _$serializers = (new Serializers().toBuilder()
       ..add(ActivityGroup.serializer)
       ..add(Document.serializer)
+      ..add(Event.serializer)
       ..add(Guide.serializer)
       ..add(PackingListDefaultItem.serializer)
       ..add(PackingListItem.serializer)

@@ -6,6 +6,7 @@ import 'package:built_value/standard_json_plugin.dart';
 
 import 'activity_group.dart';
 import 'document.dart';
+import 'event.dart';
 import 'guide.dart';
 import 'packing_list_default_item.dart';
 import 'packing_list_item.dart';
@@ -16,6 +17,7 @@ part 'serializers.g.dart';
 @SerializersFor([
   ActivityGroup,
   Document,
+  Event,
   Guide,
   PackingListDefaultItem,
   PackingListItem,

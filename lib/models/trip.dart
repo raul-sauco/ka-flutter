@@ -78,6 +78,7 @@ abstract class Trip implements Built<Trip, TripBuilder> {
   @BuiltValueField(wireName: 'teacher_code')
   String get teacherCode;
   @nullable
+  @BuiltValueField(wireName: 'ags')
   BuiltList<ActivityGroup> get activityGroups;
 
   Trip._();

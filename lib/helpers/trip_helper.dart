@@ -91,4 +91,18 @@ class TripHelper {
   /// Return a Text widget with the expected participant count.
   static Text getParticipantCount(Trip trip) =>
       Text(getParticipantCountString(trip));
+
+  /// Return a list of `DateTime` that represents all the dates that
+  /// this trip is active.
+  static List<DateTime> getTripDates(Trip trip) {
+    DateTime d = DateTime.parse(trip.startDate);
+    DateTime end = DateTime.parse(trip.endDate);
+    List<DateTime> dates = [d];
+    Duration oneDay = Duration(days: 1);
+    while (d.isBefore(end)) {
+      d = d.add(oneDay);
+      dates.add(d);
+    }
+    return dates;
+  }
 }
